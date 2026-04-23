@@ -40,7 +40,7 @@ spec:
     spec:
       containers:
       - name: cart
-        image: joindevops/cart:1.4.0
+        image: battulaswathi/cart:1.4.0
         imagePullPolicy: Always # safe to pull everytime, there may be images with same version rebuilt and pushed
         resources:
           requests:
