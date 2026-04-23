@@ -39,32 +39,33 @@ spec:
     spec:
       containers:
       - name: catalogue
-        image: joindevops/catalogue:1.0.0
+        image: joindevops/catalogue:1.4.0
+        imagePullPolicy: Always # safe to pull everytime, there may be images with same version rebuilt and pushed
         resources:
           requests:
-            memory: "128Mi"
             cpu: "100m"
+            memory: "128Mi"
           limits:
-            memory: "256Mi"
-            cpu: "200m"
+            cpu: "100m"
+            memory: "128Mi"
         readinessProbe:
-        httpGet:
-          path: /health
-          port: 8080
-        failureThreshold: 2
-        periodSeconds: 10
-        initialDelaySeconds: 5
-        livenessProbe:
-        # httpGet:
-          # path: /health
-          # port: 8080
+          # httpGet:
+          #   path: /health
+          #   port: 8080
           tcpSocket:
-              port: 8080
-        failureThreshold: 2
-        periodSeconds: 10
+            port: 8080
+          failureThreshold: 2
+          periodSeconds: 10
+          initialDelaySeconds: 15
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          failureThreshold: 2
+          periodSeconds: 10
         envFrom:
         - configMapRef:
-            name: catalogue   
+            name: catalogue
 ---
 apiVersion: v1
 kind: Service
