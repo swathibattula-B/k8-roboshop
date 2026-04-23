@@ -7,10 +7,9 @@ metadata:
     project: roboshop
     tier: backend
     component: user
-
 data:
   REDIS_URL: "redis://redis:6379"
-  MONGO_URL:  "mongodb://mongodb:27017/user"
+  MONGO_URL: "mongodb://mongodb:27017/users"
   MONGO: "true"
 ---
 apiVersion: apps/v1
@@ -23,7 +22,6 @@ metadata:
     project: roboshop
     tier: backend
     component: user
-
 spec:
   replicas: 1
   selector:
@@ -32,7 +30,6 @@ spec:
       project: roboshop
       tier: backend
       component: user
-  
   # This is pod definition, pod is subset of replicaset
   template:
     metadata:
@@ -40,12 +37,10 @@ spec:
         project: roboshop
         tier: backend
         component: user
-    
     spec:
       containers:
       - name: user
-  
-        image: battulaswathi user:1.4.0
+        image: joindevops/user:1.4.0
         imagePullPolicy: Always # safe to pull everytime, there may be images with same version rebuilt and pushed
         resources:
           requests:
@@ -72,7 +67,6 @@ spec:
         envFrom:
         - configMapRef:
             name: user
-        
 ---
 apiVersion: v1
 kind: Service
@@ -83,15 +77,13 @@ metadata:
     project: roboshop
     tier: backend
     component: user
-
 spec:
   selector:
     # labels are used as selectors
     project: roboshop
     tier: backend
     component: user
-
   ports:
   - protocol: TCP
-    port: 8080 # service port
+    port: 8080 # servie port
     targetPort: 8080 # container port

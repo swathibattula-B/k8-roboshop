@@ -9,7 +9,7 @@ metadata:
     component: cart
 data:
   REDIS_HOST: "redis"
-  CATALOGUE_HOST:  "catalogue"
+  CATALOGUE_HOST: "catalogue"
   CATALOGUE_PORT: "8080"
 ---
 apiVersion: apps/v1
@@ -40,7 +40,7 @@ spec:
     spec:
       containers:
       - name: cart
-        image: battulaswathi cart:1.4.0
+        image: joindevops/cart:1.4.0
         imagePullPolicy: Always # safe to pull everytime, there may be images with same version rebuilt and pushed
         resources:
           requests:
@@ -85,5 +85,5 @@ spec:
     component: cart
   ports:
   - protocol: TCP
-    port: 8080 # service port
+    port: 8080 # servie port
     targetPort: 8080 # container port
